@@ -65,3 +65,4 @@ disallow unsafe inline javascript by replacing
     r.headers.set('Content-Security-Policy', "script-src 'none'")
     return r
 ```
+# LiveHack
