@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% autoescape false %}
 <html lang="en">
 
 <head>
@@ -27,6 +28,7 @@
   <!-- Template Main CSS File -->
   <link href="{{ url_for('static', filename='assets2/css/style.css') }}" rel="stylesheet">
 
+  <link href="{{ url_for('static', filename='style2.css') }}" rel="stylesheet">
 
 </head>
 
@@ -45,6 +47,7 @@
   </header><!-- End Header -->
 
   
+
 
   <div class="credits">
 
@@ -65,6 +68,92 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
+
+
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="footer-col">
+            <h4>Contact Us</h4>
+            <ul>
+		  <!-- Write form -->
+		  <div class="container">
+		    <div class="comment-form">
+		      <form action="{{ url_for('home') }}" method="POST">
+			<input type="text" name="comment" placeholder="Write a comment" autocomplete="off" />
+			<input type="submit" value="Submit" />
+		      </form>
+		    </div>
+
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Comments:</h4>
+            <ul>
+		    <!-- Search form -->
+		    <form method="GET">
+		      <input type="text" name="q" 
+			     placeholder="Search query" autocomplete="off" />
+		      <input type="submit" value="Filter comments" />
+		    </form>
+
+		   <!-- Comments -->
+		   <div class="comment-section">
+		     {% if not search_query %}
+		    
+		     {% else %}
+		       <h3>Showing comments containing "{{ search_query }}":</h3>
+		     {% endif %}
+		  
+		     {% for comment in comments %}
+		       <div class="comment">
+			 <p>{{ comment }}</p>
+		       </div>
+		     {% endfor %}
+		   </div>
+		 </div>
+          <div class="footer-col">
+            <h4>get help</h4>
+            <ul>
+            
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">shipping</a></li>
+              <li><a href="#">returns</a></li>
+              <li><a href="#">order status</a></li>
+              <li><a href="#">payment options</a></li>
+            </ul>
+          </div>		    
+	  <div class="footer-col">
+            <h4>follow us</h4>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>		    
+		    
+		    
+		    
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+    </footer>
+
+
+
+
+
+
+
+
+
+
+
 </body>
 
 </html>
+{% endautoescape %}

@@ -33,31 +33,15 @@ def create_user_table():
     conn.commit()
     conn.close()
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
-    if request.method == 'POST':
-        db.add_comment(request.form['comment'])
 
-    search_query = request.args.get('q')
-    comments = db.get_comments(search_query)
-    return render_template('index.html', comments=comments, search_query=search_query)
 
-@app.route('/contact', methods=['GET', 'POST'])
-def contact():
-    if request.method == 'POST':
-        db.add_comment(request.form['comment'])
-
-    search_query = request.args.get('q')
-    comments = db.get_comments(search_query)
-    return render_template('contact.html', comments=comments, search_query=search_query)
+    return render_template('index.html')
 
 
 
-
-
-
-
-@app.route('/home')
+@app.route('/home', methods=['GET', 'POST'])
 def home():
     session_token = request.cookies.get('session_token')
 
@@ -67,9 +51,16 @@ def home():
     if session_token:
         username = get_username_from_session_token(session_token)
         if username:
-            return render_template('home.html', username=username.capitalize())
+            if request.method == 'POST':
+                db.add_comment(request.form['comment'])
+               
+               
+            search_query = request.args.get('q')
+            comments = db.get_comments(search_query)
+            return render_template('home.html',username=username, comments=comments, search_query=search_query)
     
     return redirect(url_for('login'))
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
