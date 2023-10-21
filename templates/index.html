@@ -1,19 +1,93 @@
 <!DOCTYPE html>
-{% autoescape true %}
+{% autoescape false %}
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
-    <title>XSS Demo</title>
-    <link rel="stylesheet" href="/static/style.css">
-  </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>LiveHack</title>
+    <link rel="icon" type="image/png" sizes="884x400" href="{{ url_for('static', filename='assets/img/BG.png') }}">
+    <link rel="icon" type="image/png" sizes="884x400" href="{{ url_for('static', filename='assets/img/BG.png') }}">
+    <link rel="icon" type="image/png" sizes="884x400" href="{{ url_for('static', filename='assets/img/BG.png') }}">
+    <link rel="icon" type="image/png" sizes="884x400" href="{{ url_for('static', filename='assets/img/BG.png') }}">
+    <link rel="icon" type="image/png" sizes="884x400" href="{{ url_for('static', filename='assets/img/BG.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/custom.compiled.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Dark-NavBar-1.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Dark-NavBar-2.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Dark-NavBar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Features.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Footer-with-social-media-icons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Highlight-Blue.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Highlight-Clean.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Highlight-Phone.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Lightbox-Gallery.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/scanline.compiled.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}">
+</head>
 
-  <body>
+<body>
+    <nav class="navbar navbar-light navbar-expand-md sticky-top navigation-clean-button bg-transparent" style="height:80px;color:#ffffff;">
+        <div class="container-fluid"><a class="navbar-brand" href="#"><i class="fa fa-code"></i>&nbsp;Live Hacking</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div
+                class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="/login"><i class="fa fa-github"></i>&nbsp;Login</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="/signup"><i class="fa fa-star-o"></i>&nbsp;Register</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href=""><i class="fa fa-user-circle-o"></i>&nbsp;Portfolio</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" style="color:#ffffff;" href="/contact"><i class="fa fa-phone"></i>&nbsp;Contact us</a></li>
+                </ul>
+        </div>
+        </div>
+    </nav><!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Live Hacking</title>
+  <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="style.css" />
+    <script type="text/javascript" src="js/jquery.1.11.1.js"></script>
+</head>
+<body>
+  <div class="parallax">
+  <div class="container">
 
-    <!-- Header -->
-    <header>
-      <h1>XSS Demo</h1>
-      <p>Read, search and post comments</p>
-    </header>
+
+  <div class="glitch" data-text=" Live Hacking"> Live Hacking</div>
+
+  <div class="glow">Live Hack</div>
+
+  <p class="subtitle">APA IUT CERT</p>
+  </div>
+        <div class="scanlines"></div></div>
+</body>
+
+
+</html>
+
+
+
+
+
+
+    <div style="height:200px"></div>
+    <div data-bs-parallax-bg="true" style="height: 1000px;font-size: 36px;background-image: url(http://getwallpapers.com/wallpaper/full/a/2/5/353009.jpg);background-position: center;background-size: cover;">
+        <div class="container-fluid contpos" data-aos="zoom-out" data-aos-once="true" style="margin-top: 400px;">
+
+           
+
+        <div class="card" style="height: 500px;padding: 100px;margin: 100px;background-color: rgba(255,255,255,0);filter: blur(0px);padding-top: 500px;margin-top: 300px;">
+            <div style="position: relative; left: 0; top: 0;">
+                <div class="container text-success bggreen" style="height: 500px;padding-right: 0px;padding-left: 0px;filter: blur(100px);padding-top: 100px;"><img src="assets/img/BG.png"></div>
+            </div>
+        </div>
+        <div class="scanline"></div>
+    </div>
 
     <!-- Search form -->
     <form method="GET">
@@ -22,26 +96,28 @@
       <input type="submit" value="Filter comments" />
     </form>
 
-    <!-- Comments -->
-    {% if not search_query %}
-      <h3>Showing all comments:</h3>
-    {% else %}
-      <h3>Showing comments containing "{{ search_query }}":</h3>
-    {% endif %}
+    <footer id="footerpad" class="fooot" style="background-color: rgba(0,0,0,0);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-8 mx-auto">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item"><a href=""><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x" style="color: rgb(36,255,0);"></i><i class="fa fa-facebook fa-stack-1x fa-inverse"></i></span></a></li>
+                        <li class="list-inline-item"><a href=""><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x" style="color: rgb(36,255,0);"></i><i class="fa fa-linkedin fa-stack-1x fa-inverse"></i></span></a></li>
+                        <li class="list-inline-item"><a href=""><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x" style="color: rgb(36,255,0);"></i><i class="fa fa-instagram fa-stack-1x fa-inverse"></i></span></a></li>
+                        <li class="list-inline-item"><a href=""><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x" style="color: rgb(36,255,0);"></i><i class="fa fa-link fa-stack-1x fa-inverse"></i></span></a></li>
+                    </ul><p class="copyright text-muted text-center">&copy; Live Hacking 2023</p></div>
+            </div>
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/bs-init.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery.1.11.1.js') }}"></script>
+</body>
 
-    {% for comment in comments %}
-      <div>
-        <p>{{ comment }}</p>
-      </div>
-    {% endfor %}
 
-    <!-- Write form -->
-    <form action="/" method="POST">
-      <input type="text" name="comment" 
-             placeholder="Comment" autocomplete="off" />
-      <input type="submit" value="Submit new comment" />
-    </form>
-
-  </body>
 </html>
+
 {% endautoescape %}

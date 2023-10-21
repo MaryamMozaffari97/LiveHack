@@ -1,0 +1,88 @@
+from flask import Flask, render_template, request, make_response, redirect, url_for,flash
+import db
+import sqlite3
+import hashlib
+
+app = Flask(__name__)
+app.secret_key = 'mysecretkey'
+
+def create_user_table():
+    conn = sqlite3.connect('users.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS users(
+            email TEXT PRIMARY KEY,
+            username TEXT,
+            password TEXT
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        db.add_comment(request.form['comment'])
+
+    search_query = request.args.get('q')
+    comments = db.get_comments(search_query)
+    return render_template('index.html', comments=comments, search_query=search_query)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = hashlib.sha256(request.form.get('password').encode()).hexdigest()
+
+        conn = sqlite3.connect('users.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM users WHERE email=?", (email,))
+        user = cursor.fetchone()
+        conn.close()
+
+        if user and user[2] == password:
+            response = make_response(redirect(url_for('home')))
+            response.set_cookie('username', user[1])
+            return response
+        else:
+            return "Invalid email or password! 😞"
+
+    return render_template('login.html')
+
+@app.route('/home')
+def home():
+    username = request.cookies.get('username')
+    if username:
+        return render_template('home.html', username=username.capitalize() if username else None)
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        username = request.form.get('username')
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+
+        if password != confirm_password:
+            return "Passwords do not match! 😞"
+
+        password_hash = hashlib.sha256(password.encode()).hexdigest()
+
+        conn = sqlite3.connect('users.db')
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO users VALUES (?, ?, ?)", (email, username, password_hash))
+        conn.commit()
+        conn.close()
+
+        response = make_response(redirect(url_for('home')))
+        response.set_cookie('username', username)
+        flash("Successfully registered!")  # New line to show success message
+        return response
+
+    return render_template('signup.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
