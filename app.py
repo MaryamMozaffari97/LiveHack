@@ -33,37 +33,37 @@ def create_user_table():
     conn.commit()
     conn.close()
 
-@app.route('/', methods=['GET'])
-def index():
-
-
-    return render_template('index.html')
-
-
-
-@app.route('/home', methods=['GET', 'POST'])
-def home():
+def validate_session_token():
     session_token = request.cookies.get('session_token')
-
-    # Here, you can validate the session_token against the user's record in the database
-    # to ensure the session is still valid.
-
     if session_token:
         username = get_username_from_session_token(session_token)
         if username:
-            if request.method == 'POST':
-                db.add_comment(request.form['comment'])
-               
-               
-            search_query = request.args.get('q')
-            comments = db.get_comments(search_query)
-            return render_template('home.html',username=username, comments=comments, search_query=search_query)
-    
-    return redirect(url_for('login'))
+            return True
+    return False
 
+@app.route('/', methods=['GET'])
+def index():
+    if validate_session_token():
+        return redirect(url_for('home'))
+    return render_template('index.html')
+
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    if validate_session_token():
+        session_token = request.cookies.get('session_token')
+        username = get_username_from_session_token(session_token)
+        if request.method == 'POST':
+            db.add_comment(request.form['comment'])
+        search_query = request.args.get('q')
+        comments = db.get_comments(search_query)
+        return render_template('home.html', username=username, comments=comments, search_query=search_query)
+    return redirect(url_for('index'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if validate_session_token():
+        return redirect(url_for('index'))
+    
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
@@ -88,16 +88,19 @@ def login():
             conn.commit()
             conn.close()
 
-            flash(f"Welcome back, {username}!")  # Show success message using flash
+            flash(f"Welcome back, {username}!")
             return response
         else:
-            flash("Invalid email or password! 😟")  # Show error message using flash
+            flash("Invalid email or password! 😟")
             return redirect(url_for('login'))
 
     return render_template('login.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    if validate_session_token():
+        return redirect(url_for('index'))
+    
     if request.method == 'POST':
         email = request.form.get('email')
         username = request.form.get('username')
@@ -105,7 +108,7 @@ def signup():
         confirm_password = request.form.get('confirm_password')
 
         if password != confirm_password:
-            flash("Passwords do not match! 😞")  # Show error message using flash
+            flash("Passwords do not match! 😞")
             return redirect(url_for('signup'))
 
         password_hash = hashlib.sha256(password.encode()).hexdigest()
@@ -120,11 +123,11 @@ def signup():
         conn.commit()
         conn.close()
 
-        flash("Successfully registered!")  # Show success message using flash
+        flash("Successfully registered!")
         return response
 
     return render_template('signup.html')
-    
+
 @app.route('/logout')
 def logout():
     session_token = request.cookies.get('session_token')
@@ -138,10 +141,10 @@ def logout():
 
     response = make_response(redirect(url_for('login')))
     response.delete_cookie('session_token')
-    flash("You have been logged out. See you next time! 👋")  # Show logout message using flash
+    flash("You have been logged out. See you next time! 👋")
     return response
-    
+
 if __name__ == '__main__':
-    create_user_table()  # Create the user table if it doesn't exist
-    app.run(debug=True)
+    create_user_table()
+    app.run(debug=False)
 
